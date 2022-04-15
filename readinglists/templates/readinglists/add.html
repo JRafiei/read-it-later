@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="eight columns">
+        <form action="{% url 'add-document' %}" method="POST">
+          {% csrf_token %}
+          <label for="document-name">Name</label>
+          <input class="u-full-width" type="text" id="document-name" name="name">
+          <label for="document-url">URL</label>
+          <input class="u-full-width" type="text" id="document-url" name="url">
+          <input class="button-primary" type="submit" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
