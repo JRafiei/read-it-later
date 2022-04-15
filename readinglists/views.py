@@ -13,3 +13,8 @@ def add_document(request):
         return redirect(reverse('add-document'))
 
     return render(request, 'readinglists/add.html', {})
+
+
+def list_documents(request):
+    docuements = Document.objects.all()
+    return render(request, 'readinglists/list.html', {'documents': docuements})
