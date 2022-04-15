@@ -8,6 +8,7 @@ def add_document(request):
         Document.objects.create(
             name=request.POST.get('name'),
             url=request.POST.get('url'),
+            description=request.POST.get('description'),
             user=request.user
         )
         return redirect(reverse('add-document'))
