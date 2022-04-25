@@ -10,6 +10,24 @@
     .inline-list-item {
       display: inline-block;
     }
+    ul.pagination {
+      text-align: center;
+    }
+    ul.pagination li {
+      display: inline-block;
+      border-style: solid;
+      border-width: 1px;
+      border-color: rgb(223, 221, 221);
+      padding: 2px 8px;
+    }
+    ul.pagination li.active {
+      color: white;
+      background-color: rgb(44, 146, 241);
+    }
+    ul.pagination a {
+      color: rgb(44, 146, 241);
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -29,6 +47,28 @@
             </li>
           {% endfor %}
         </ul>
+
+        {% if documents.has_other_pages %}
+          <ul class="pagination">
+            {% if documents.has_previous %}
+              <li><a href="?page={{ documents.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in documents.paginator.page_range %}
+              {% if documents.number == i %}
+                <li class="active"><span>{{ i }}</span></li>
+              {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if documents.has_next %}
+              <li><a href="?page={{ documents.next_page_number }}">&raquo;</a></li>
+            {% else %}
+              <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from .models import Document
@@ -21,7 +22,16 @@ def add_document(request):
 def list_documents(request):
     tag = request.GET.get('tag')
     if tag:
-        docuements = Document.objects.filter(tags__name=tag)
+        queryset = Document.objects.filter(tags__name=tag)
     else:
-        docuements = Document.objects.all()
+        queryset = Document.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 10)
+    try:
+        docuements = paginator.page(page)
+    except PageNotAnInteger:
+        docuements = paginator.page(1)
+    except EmptyPage:
+        docuements = paginator.page(paginator.num_pages)
+
     return render(request, 'readinglists/list.html', {'documents': docuements})
